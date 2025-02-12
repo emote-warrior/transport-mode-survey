@@ -4,38 +4,100 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Transport Mode Survey</title>
-    <script defer src="script.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Aptos', sans-serif;
-            text-align: center;
-            margin: 20px;
+            text-align: left;
+            margin: 40px;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        label, p {
+            font-size: 18px;
         }
         input, button {
             font-family: 'Aptos', sans-serif;
             padding: 8px;
-            margin: 5px;
+            margin: 5px 0;
+        }
+        .container {
+            max-width: 600px;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        #co2-output {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        canvas {
+            max-width: 100%;
+            margin-top: 20px;
         }
     </style>
+    <script>
+        function calculateCO2() {
+            const emissions = {
+                car: 130,  // g CO2 per km
+                bus: 32,
+                auto: 21,
+                cab: 68,
+                bike: 36,
+                walk: 0,
+            };
+
+            let selectedMode = document.querySelector('input[name="mode"]:checked');
+            let distance = document.getElementById('distance').value;
+
+            if (!distance || distance <= 0) {
+                alert("Please enter a valid distance in km.");
+                return;
+            }
+
+            if (!selectedMode) {
+                alert("Please select a mode of transport.");
+                return;
+            }
+
+            let totalCO2 = emissions[selectedMode.value] * distance;
+            document.getElementById('co2-output').textContent = totalCO2.toFixed(2);
+        }
+    </script>
 </head>
 <body>
-    <h1>How Do You Travel to School?</h1>
-    <p>Select the modes of transport you use:</p>
+    <div class="container">
+        <h1>How Do You Travel to School?</h1>
+        <p>Select your mode of transport:</p>
 
-    <form id="transport-form">
-        <label><input type="checkbox" name="mode" value="car"> Car</label><br>
-        <label><input type="checkbox" name="mode" value="bus"> Bus</label><br>
-        <label><input type="checkbox" name="mode" value="auto"> Auto-rickshaw</label><br>
-        <label><input type="checkbox" name="mode" value="cab"> Cab/Taxi</label><br>
-        <label><input type="checkbox" name="mode" value="bike"> Motorcycle/Scooter</label><br>
-        <label><input type="checkbox" name="mode" value="walk"> Walking</label><br><br>
+        <form id="transport-form">
+            <label><input type="radio" name="mode" value="car"> Car</label><br>
+            <label><input type="radio" name="mode" value="bus"> Bus</label><br>
+            <label><input type="radio" name="mode" value="auto"> Auto-rickshaw</label><br>
+            <label><input type="radio" name="mode" value="cab"> Cab/Taxi</label><br>
+            <label><input type="radio" name="mode" value="bike"> Motorcycle/Scooter</label><br>
+            <label><input type="radio" name="mode" value="walk"> Walking</label><br><br>
 
-        <label for="distance">Enter Distance (km):</label>
-        <input type="number" id="distance" min="1" required><br><br>
+            <label for="distance">Enter Distance (km):</label>
+            <input type="number" id="distance" min="1" required><br><br>
 
-        <button type="button" onclick="calculateCO2()">Calculate My CO₂ Emission</button>
-    </form>
+            <button type="button" onclick="calculateCO2()">Calculate My CO₂ Emission</button>
+        </form>
 
-    <h2>Your CO₂ Emission: <span id="co2-output">0</span> g CO₂ per trip</h2>
+        <h2>Your CO₂ Emission: <span id="co2-output">0</span> g CO₂ per trip</h2>
+        <p id="equivalent-output"></p>
+        
+        <canvas id="co2Chart"></canvas>
+    </div>
 </body>
 </html>
