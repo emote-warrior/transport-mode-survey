@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transport Mode Survey</title>
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <h1>How Do You Travel to School?</h1>
+    <p>Select the modes of transport you use:</p>
+    
+    <form id="transport-form">
+        <label><input type="checkbox" name="mode" value="car"> Car</label><br>
+        <label><input type="checkbox" name="mode" value="bus"> Bus</label><br>
+        <label><input type="checkbox" name="mode" value="bike"> Bicycle</label><br>
+        <label><input type="checkbox" name="mode" value="walk"> Walking</label><br>
+        <label><input type="checkbox" name="mode" value="train"> Train</label><br>
+        
+        <button type="button" onclick="calculateCO2()">Calculate My CO₂ Emission</button>
+    </form>
+
+    <h2>Your CO₂ Emission: <span id="co2-output">0</span> kg CO₂ per trip</h2>
+</body>
+</html>
