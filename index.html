@@ -45,6 +45,12 @@
             max-width: 100%;
             margin-top: 20px;
         }
+        #assumptions {
+            display: none;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
     </style>
     <script>
         function calculateCO2() {
@@ -79,6 +85,11 @@
 
             document.getElementById('equivalent-output').textContent = `It would take approximately ${equivalentTrees.toFixed(2)} trees absorbing CO₂ for a day to offset this emission.`;
         }
+
+        function toggleAssumptions() {
+            let assumptionsDiv = document.getElementById('assumptions');
+            assumptionsDiv.style.display = assumptionsDiv.style.display === 'none' ? 'block' : 'none';
+        }
     </script>
 </head>
 <body>
@@ -104,6 +115,13 @@
         <p id="equivalent-output"></p>
         
         <canvas id="co2Chart"></canvas>
+        
+        <button onclick="toggleAssumptions()">Show Assumptions</button>
+        <div id="assumptions">
+            <h3>Assumptions</h3>
+            <p>CO₂ Emissions per km: Car - 130g | Bus - 32g | Auto - 21g | Cab - 68g | Bike - 36g | Walk - 0g</p>
+            <p>Tree absorption per day: 67g CO₂</p>
+        </div>
     </div>
 </body>
 </html>
