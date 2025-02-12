@@ -73,12 +73,11 @@
             let totalCO2 = emissions[selectedMode.value] * distance;
             document.getElementById('co2-output').textContent = totalCO2.toFixed(2);
 
-            // CO2 equivalence calculation (100W light bulb)
-            const lightBulbCO2PerYear = 750000; // g CO2 for a 100W bulb running all year
-            const lightBulbCO2PerHour = lightBulbCO2PerYear / (24 * 365); // g CO2 per hour
-            let equivalentHours = totalCO2 / lightBulbCO2PerHour;
+            // CO2 equivalence calculation (Trees required to absorb CO2 per year)
+            const treeAbsorptionPerYear = 25000; // g CO2 per tree per year
+            let equivalentTrees = totalCO2 / treeAbsorptionPerYear;
 
-            document.getElementById('equivalent-output').textContent = `This is equivalent to leaving a 100W light bulb on for approximately ${equivalentHours.toFixed(2)} hours.`;
+            document.getElementById('equivalent-output').textContent = `It would take approximately ${equivalentTrees.toFixed(2)} trees absorbing CO₂ for a year to offset this emission.`;
         }
     </script>
 </head>
